@@ -1,0 +1,59 @@
+### Token Variable
+@tokenValue = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiVGVzdFVzZXIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTc1ODA3NTY4NiwiaXNzIjoiVGVzdFVzZXIiLCJhdWQiOiJBZG1pbiJ9.MqpqANCoAqFgSUGJMqZuVLnv8MqWs-ElMQCc4yEb3X0
+
+
+### Create a new user
+POST http://localhost:5231/api/users
+Content-Type: application/json
+Authorization: Bearer {{tokenValue}}
+
+{
+  "id": 1001,
+  "name": "Alice Johnson",
+  "email": "alice.johnson@example.com"
+}
+
+
+### Get user by ID
+GET http://localhost:5231/api/users/1001
+Authorization: Bearer {{tokenValue}}
+
+
+### Get all users (paginated)
+GET http://localhost:5231/api/users?page=1&pageSize=5
+Authorization: Bearer {{tokenValue}}
+
+
+### Update user
+PUT http://localhost:5231/api/users/1001
+Content-Type: application/json
+Authorization: Bearer {{tokenValue}}
+
+{
+  "id": 1001,
+  "name": "Alice J.",
+  "email": "alice.j@example.com"
+}
+
+
+### Delete user
+DELETE http://localhost:5231/api/users/1001
+Authorization: Bearer {{tokenValue}}
+
+
+### Test invalid ID
+GET http://localhost:5231/api/users/-1
+Authorization: Bearer {{tokenValue}}
+
+
+### Test unauthorized access
+GET http://localhost:5231/api/users
+Authorization: Bearer "AN_INVALID_TOKEN"
+
+
+### Generate JWT Token
+POST http://localhost:5231/api/auth/token
+
+
+### Test Token Pipeline
+GET http://localhost:5231/api/auth/ping
